@@ -8,12 +8,6 @@ const elias = new SlackBots({
   name: 'eliascecon'
 });
 
-function postMessage(message, channel) {
-  elias.postMessageToChannel(channel, message, {
-    as_user: '@eliascecon'
-  });
-}
-
 const startMessages = [
   'Cheguei senhores. COMO ESTAMOS?',
   'Acabei de chegar da minha aula de PNL. Foi FUDIDO!',
@@ -26,8 +20,19 @@ const morningMessages = [
   'BOM DIA! HOJE É DIA DE FAZER O CAFÉ PINGAR!'
 ]
 
+function postMessage(message, channel) {
+  elias.postMessageToChannel(channel, message, {
+    as_user: '@eliascecon'
+  });
+}
+
+function getRandomMessage(messages) {
+  return messages[parseInt(Math.random() * messages.length)];
+}
+
+// Events
 elias.on('start', function() {
-  postMessage(startMessages[parseInt(Math.random() * startMessages.length)], 'random')
+  postMessage(getRandomMessage(startMessages), 'random')
   console.log('> Elias has been started!')
 });
 
@@ -37,10 +42,10 @@ elias.on('message', function(data) {
 
   if (data.type === 'message' && data.user !== eliasId) {
     if (data.text.toLowerCase().indexOf(trigger) !== -1) {
-      postMessage(morningMessages[parseInt(Math.random() * morningMessages.length)], 'random')
+      postMessage(getRandomMessage(morningMessages), 'random')
     }
   }
-})  
+})
 
 // For avoidong Heroku $PORT error
 app.set('port', (process.env.PORT || 5000));
