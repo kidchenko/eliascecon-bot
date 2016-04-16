@@ -8,6 +8,12 @@ const elias = new SlackBots({
   name: 'eliascecon'
 });
 
+const startMessages = [
+  'Cheguei senhores. COMO ESTAMOS?',
+  'Acabei de chegar da minha aula de PNL. Foi FUDIDO!',
+  'Olá SENHORES, como estão? Se vocês estão bem, eu também estou!'
+]
+
 const morningMessages = [
   'BOM DIA!',
   'BOM DIA SENHORES!',
@@ -15,7 +21,8 @@ const morningMessages = [
 ]
 
 elias.on('start', function() {
-  elias.postMessageToChannel('random', 'Cheguei!', {
+  const message = startMessages[parseInt(Math.random() * startMessages.length)]
+  elias.postMessageToChannel('random', message, {
     as_user: '@eliascecon'
   });
 
