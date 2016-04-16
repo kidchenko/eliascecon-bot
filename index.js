@@ -11,7 +11,7 @@ const elias = new SlackBots({
 const startMessages = [
   'Cheguei senhores. COMO ESTAMOS?',
   'Acabei de chegar da minha aula de PNL. Foi FUDIDO!',
-  'Olá SENHORES, como estão? Se vocês estão bem, eu também estou!'
+  'Olá SENHORES, como estamos? Se vocês estão bem, eu também estou!'
 ]
 
 const morningMessages = [
