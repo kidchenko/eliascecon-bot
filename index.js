@@ -1,7 +1,8 @@
 var SlackBots = require('slackbots')
 var express = require('express')
 var app = express()
-var http = require("http")
+var http = require('http')
+var _ = require('underscore')
 
 const elias = new SlackBots({
   token: process.env.TOKEN,
@@ -20,14 +21,33 @@ const morningMessages = [
   'BOM DIA! HOJE É DIA DE FAZER O CAFÉ PINGAR!'
 ]
 
-function postMessage(message, channel) {
+const howAreYouMessages = [
+  'SE VOCÊ ESTÁ BEM EU TAMBÉM ESTOU?',
+  'EU ESTOU BEM E VOCÊ COMO ESTÁ?',
+  'FÁCIL É DIZER "OI" OU "TUDO BEM?, COMO VAI". DIFÍCIL É DIZER "ADEUS"...'
+]
+
+const triggers = {
+  'bom dia' : morningMessages,
+  'tudo bem' : howAreYouMessages
+};
+
+postMessage = exports.postMessage = function (message, channel) {
   elias.postMessageToChannel(channel, message, {
     as_user: '@eliascecon'
   });
 }
 
-function getRandomMessage(messages) {
+isTriggerMessage = exports.isTriggerMessage = function (data) {
+  return _.contains(_.keys(triggers), sanitize(data));
+}
+
+getRandomMessage = exports.getRandomMessage = function (messages) {
   return messages[parseInt(Math.random() * messages.length)];
+}
+
+sanitize = exports.sanitize = function (message) {
+  return message.replace(new RegExp('[?.!]'), '').toLowerCase();
 }
 
 // Events
@@ -37,12 +57,10 @@ elias.on('start', function() {
 });
 
 elias.on('message', function(data) {
-  const trigger = "bom dia"
   const eliasId = 'U10NFSVN3'
-
   if (data.type === 'message' && data.user !== eliasId) {
-    if (data.text.toLowerCase().indexOf(trigger) !== -1) {
-      postMessage(getRandomMessage(morningMessages), 'random')
+    if (isTriggerMessage(sanitize(data.text))) {
+      postMessage(getRandomMessage(triggers[sanitize(data.text)]), 'random');
     }
   }
 })
