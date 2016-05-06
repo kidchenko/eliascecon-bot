@@ -12,41 +12,48 @@ const elias = new SlackBots({
 const startMessages = [
   'Cheguei senhores. COMO ESTAMOS?',
   'Acabei de chegar da minha aula de PNL. Foi FUDIDO!',
-  'Olá SENHORES, como estamos? Se vocês estão bem, eu também estou!'
+  'Olá SENHORES, como estamos? Se vocês estão bem, eu também estou!',
+  'Estou de volta! Estava trabalhando no meu gerador de energia infinita. FUDIDO!'
 ]
 
 const morningMessages = [
-  'BOM DIA!',
-  'BOM DIA SENHORES!',
-  'BOM DIA! HOJE É DIA DE FAZER O CAFÉ PINGAR!'
+  'BOM DIA SENHORES! COMO ESTAMOS?',
+  'BOM DIA! HOJE É DIA DE FAZER O CAFÉ PINGAR!',
+  'BOM DIA? OTIMO DIA! HOJE EU SINTO QUE O CAFÉ VAI PINGAR!',
+  'BOM DIA! JÁ FIZ TRÊS VENDAS HOJE! PAAAH!',
 ]
 
 const howAreYouMessages = [
-  'SE VOCÊ ESTÁ BEM EU TAMBÉM ESTOU?',
-  'EU ESTOU BEM E VOCÊ COMO ESTÁ?',
-  'FÁCIL É DIZER "OI" OU "TUDO BEM?, COMO VAI". DIFÍCIL É DIZER "ADEUS"...'
+  'SE VOCÊ ESTÁ BEM EU TAMBÉM ESTOU!',
+]
+
+const howAreWeMessages = [
+  'SE VOCÊS ESTÃO BEM EU TAMBÉM ESTOU!',
 ]
 
 const triggers = {
-  'bom dia' : morningMessages,
-  'tudo bem' : howAreYouMessages
+  'bom dia': morningMessages,
+  'estou otimo': howAreYouMessages,
+  'estou ótimo': howAreYouMessages,
+  'estamos otimos': howAreWeMessages,
+  'estamos ótimos': howAreWeMessages
 };
 
-postMessage = exports.postMessage = function (message, channel) {
+postMessage = exports.postMessage = function(message, channel) {
   elias.postMessageToChannel(channel, message, {
     as_user: '@eliascecon'
   });
 }
 
-isTriggerMessage = exports.isTriggerMessage = function (data) {
+isTriggerMessage = exports.isTriggerMessage = function(data) {
   return _.contains(_.keys(triggers), sanitize(data));
 }
 
-getRandomMessage = exports.getRandomMessage = function (messages) {
+getRandomMessage = exports.getRandomMessage = function(messages) {
   return messages[parseInt(Math.random() * messages.length)];
 }
 
-sanitize = exports.sanitize = function (message) {
+sanitize = exports.sanitize = function(message) {
   return message.replace(new RegExp('[?.!]'), '').toLowerCase();
 }
 
