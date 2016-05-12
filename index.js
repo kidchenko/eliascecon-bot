@@ -1,3 +1,5 @@
+'use strict';
+
 var SlackBots = require('slackbots')
 var express = require('express')
 var app = express()
@@ -39,21 +41,21 @@ const triggers = {
   'estamos ótimos': howAreWeMessages
 };
 
-postMessage = exports.postMessage = function(message, channel) {
+var postMessage = exports.postMessage = function(message, channel) {
   elias.postMessageToChannel(channel, message, {
     as_user: '@eliascecon'
   });
 }
 
-isTriggerMessage = exports.isTriggerMessage = function(data) {
+var isTriggerMessage = exports.isTriggerMessage = function(data) {
   return _.contains(_.keys(triggers), sanitize(data));
 }
 
-getRandomMessage = exports.getRandomMessage = function(messages) {
+var getRandomMessage = exports.getRandomMessage = function(messages) {
   return messages[parseInt(Math.random() * messages.length)];
 }
 
-sanitize = exports.sanitize = function(message) {
+var sanitize = exports.sanitize = function(message) {
   return message.replace(new RegExp('[?.!]'), '').toLowerCase();
 }
 
