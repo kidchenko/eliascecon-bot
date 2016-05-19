@@ -1,19 +1,31 @@
 var should = require('chai').should()
 var app = require('../index.js');
 
-describe('app', function() {
-  describe('triggers', function () {
+describe('app', () => {
+  describe('triggers', () => {
 
-    it('"bom dia" should be a trigger', function () {
+    it('"bom dia" should be a trigger', () => {
       app.isTriggerMessage('bom dia').should.eq(true);
     });
 
-    it('"tudo bem" should be a trigger', function () {
-      app.isTriggerMessage('tudo bem').should.eq(true);
+    it('"estou otimo should be a trigger', () => {
+      app.isTriggerMessage('estou otimo').should.eq(true);
     });
 
-    it('trigger should ignore case', function () {
-        app.isTriggerMessage('TUDO BEM').should.eq(true);
+    it('"estou ótimo should be a trigger', () => {
+      app.isTriggerMessage('estou ótimo').should.eq(true);
+    });
+
+    it('"estamos otimos should be a trigger', () => {
+      app.isTriggerMessage('estou ótimo').should.eq(true);
+    });
+
+    it('"estamos ótimos should be a trigger', () => {
+      app.isTriggerMessage('estou ótimo').should.eq(true);
+    });
+
+    it('trigger should ignore case', () => {
+        app.isTriggerMessage('BOM DIA').should.eq(true);
     })
   });
 });
