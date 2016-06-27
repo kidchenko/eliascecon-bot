@@ -1,13 +1,11 @@
-'use strict';
-
-var SlackBots = require('slackbots')
-var express = require('express')
-var app = express()
-var http = require('http')
-var _ = require('underscore')
+import SlackBots from 'slackbots';
+import express from 'express';
+import http from 'http';
+import _ from 'underscore';
+var app = express();
 
 const elias = new SlackBots({
-  token: process.env.TOKEN,
+  token: process.env.ELIASTOKEN,
   name: 'eliascecon'
 });
 

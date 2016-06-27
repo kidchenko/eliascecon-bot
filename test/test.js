@@ -1,5 +1,5 @@
 var should = require('chai').should()
-var app = require('../index.js');
+var app = require('../dist/index.js');
 
 describe('app', () => {
   describe('triggers', () => {
