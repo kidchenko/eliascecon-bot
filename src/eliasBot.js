@@ -5,13 +5,13 @@ export default class EliasBot {
 
     constructor(settings) {
         this.settings = settings;
-        
 
         this.morningMessages = [
         'BOM DIA SENHORES! COMO ESTAMOS?',
         'BOM DIA! HOJE É DIA DE FAZER O CAFÉ PINGAR!',
         'BOM DIA? OTIMO DIA! HOJE EU SINTO QUE O CAFÉ VAI PINGAR!',
         'BOM DIA! JÁ FIZ TRÊS VENDAS HOJE! PAAAH!',
+        'BOM DIA! HOJE É DIA DE ABRAÇAR UM DEV!'
         ]
 
         this.howAreYouMessages = [
@@ -33,7 +33,6 @@ export default class EliasBot {
     }
 
     run() {
-        console.log('run');
         this.bot.on('start', this._onStart)
         this.bot.on('onMessage', this._onMessage);
     }
@@ -68,6 +67,6 @@ export default class EliasBot {
     }
 
     sanitize(message) {
-        return message.replace(new RegExp('[?.!]'), '').toLowerCase();
+        return message.replace(new RegExp('[?.!]+'), '').toLowerCase();
     }
 }
